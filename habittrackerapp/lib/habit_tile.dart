@@ -5,6 +5,7 @@ class HabitTile extends StatelessWidget {
   final String habitName;
   final VoidCallback onTap;
   final VoidCallback settingsTapped;
+  final VoidCallback restartTapped;
   final int timeSpent;
   final int timeGoal;
   final bool habitStarted;
@@ -16,7 +17,8 @@ class HabitTile extends StatelessWidget {
       required this.settingsTapped,
       required this.timeSpent,
       required this.timeGoal,
-      required this.habitStarted})
+      required this.habitStarted,
+      required this.restartTapped})
       : super(key: key);
 
   // convert seconds into mini sec
@@ -95,15 +97,33 @@ class HabitTile extends StatelessWidget {
                     ),
                     // progress
                     Text(
-                      "${formatToMinSec(timeSpent)} / $timeGoal = ${(percentCompleted() * 100).toStringAsFixed(0)}%",
+                      percentCompleted() == 1
+                          ? "Completed!"
+                          : "${formatToMinSec(timeSpent)} / $timeGoal = ${(percentCompleted() * 100).toStringAsFixed(0)}%",
                       style: const TextStyle(color: Colors.grey),
                     )
                   ],
                 ),
               ],
             ),
-            GestureDetector(
-                onTap: settingsTapped, child: const Icon(Icons.settings)),
+            Row(
+              children: [
+                habitStarted
+                    ? const Icon(
+                        Icons.timelapse_rounded,
+                        color: Colors.black,
+                      )
+                    : GestureDetector(
+                        onTap: restartTapped,
+                        child: const Icon(
+                          Icons.restart_alt,
+                          color: Colors.red,
+                        )),
+                const SizedBox(width: 8),
+                GestureDetector(
+                    onTap: settingsTapped, child: const Icon(Icons.settings)),
+              ],
+            ),
           ],
         ),
       ),

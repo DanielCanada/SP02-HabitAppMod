@@ -36,6 +36,11 @@ class _MyWidgetState extends State<HomePage> {
             timer.cancel();
           }
 
+          if (habitList[index][2] == ((habitList[index][3] * 60) - 1)) {
+            timer.cancel();
+            habitList[index][1] = !habitList[index][1];
+          }
+
           // calculate time elapsed
           var currentTime = DateTime.now();
           habitList[index][2] = elapsedTime +
@@ -46,6 +51,12 @@ class _MyWidgetState extends State<HomePage> {
         });
       });
     }
+  }
+
+  void restartClicked(int index) {
+    setState(() {
+      habitList[index][2] = 0;
+    });
   }
 
   void settingsOpened(int index) {
@@ -133,16 +144,20 @@ class _MyWidgetState extends State<HomePage> {
             itemCount: habitList.length,
             itemBuilder: ((context, index) {
               return HabitTile(
-                  habitName: habitList[index][0],
-                  onTap: () {
-                    habitStarted(index);
-                  },
-                  settingsTapped: () {
-                    settingsOpened(index);
-                  },
-                  timeSpent: habitList[index][2],
-                  timeGoal: habitList[index][3],
-                  habitStarted: habitList[index][1]);
+                habitName: habitList[index][0],
+                onTap: () {
+                  habitStarted(index);
+                },
+                settingsTapped: () {
+                  settingsOpened(index);
+                },
+                restartTapped: () {
+                  restartClicked(index);
+                },
+                timeSpent: habitList[index][2],
+                timeGoal: habitList[index][3],
+                habitStarted: habitList[index][1],
+              );
             })));
   }
 }
