@@ -1,6 +1,6 @@
-# habittrackerapp
+# Habit Tracker App or Progress Tracker App
 
-A new Flutter project.
+A new Flutter project. Copied and modified from existing flutter UI habit tracker app on youtube.
 
 ## Getting Started
 
