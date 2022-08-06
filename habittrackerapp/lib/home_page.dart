@@ -49,11 +49,72 @@ class _MyWidgetState extends State<HomePage> {
   }
 
   void settingsOpened(int index) {
+    TextEditingController nameEditController;
+    TextEditingController durationEditController;
+
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Settings for ' + habitList[index][0]),
+            title: const Text(
+              'Settings',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  TextFormField(
+                    cursorColor: Colors.black,
+                    controller: nameEditController =
+                        TextEditingController(text: habitList[index][0]),
+                    decoration: const InputDecoration(
+                      //hintText: snapshot.data!.title.toString(),
+                      labelText: "Label:",
+                      labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    cursorColor: Colors.black,
+                    controller: durationEditController = TextEditingController(
+                        text: habitList[index][3].toString()),
+                    decoration: const InputDecoration(
+                      //hintText: snapshot.data!.title.toString(),
+                      labelText: "Duration ( minutes ):",
+                      labelStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Update'),
+                onPressed: () {
+                  setState(() {
+                    habitList[index][0] = nameEditController.text;
+                    habitList[index][3] =
+                        double.parse(durationEditController.text);
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           );
         });
   }
@@ -64,7 +125,8 @@ class _MyWidgetState extends State<HomePage> {
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
-          title: const Text("Consistency is key."),
+          title: const Text("Small Daily Habits Lead to Long Term Growth.",
+              style: TextStyle(fontSize: 16)),
           centerTitle: false,
         ),
         body: ListView.builder(
