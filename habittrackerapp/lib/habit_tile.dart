@@ -112,7 +112,7 @@ class HabitTile extends StatelessWidget {
                     : GestureDetector(
                         onTap: restartTapped,
                         child: const Icon(
-                          Icons.restart_alt,
+                          Icons.autorenew_rounded,
                           color: Colors.red,
                         )),
                 const SizedBox(width: 8),

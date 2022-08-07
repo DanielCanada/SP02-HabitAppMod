@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:habittrackerapp/boxes.dart';
 import 'dart:async';
@@ -17,13 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<HomePage> {
-  // List habitList = [
-  //   ['Exercise / Chores', false, 0, 1],
-  //   ['Meditate', false, 0, 20],
-  //   ['Hobbies', false, 0, 20],
-  //   ['Read', false, 0, 40],
-  // ];
-
   @override
   void dispose() {
     Hive.close();
@@ -92,7 +83,6 @@ class _MyWidgetState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         backgroundColor: Colors.grey[800],
         onPressed: () => showDialog(
           context: context,
@@ -100,41 +90,32 @@ class _MyWidgetState extends State<HomePage> {
             onClickedDone: addHabit,
           ),
         ),
+        child: const Icon(Icons.add),
       ),
-      // ListView.builder(
-      //     itemCount: habitList.length,
-      //     itemBuilder: ((context, index) {
-      //       return HabitTile(
-      //         habitName: habitList[index][0],
-      //         onTap: () {
-      //           habitStarted(index);
-      //         },
-      //         settingsTapped: () {
-      //           settingsOpened(index);
-      //         },
-      //         restartTapped: () {
-      //           restartClicked(index);
-      //         },
-      //         timeSpent: habitList[index][2],
-      //         timeGoal: habitList[index][3],
-      //         habitStarted: habitList[index][1],
-      //       );
-      //     }))
     );
   }
 
   Widget buildContent(List<Habits> habits) {
     if (habits.isEmpty) {
-      return const Center(
-        child: Text(
-          'No habits yet!',
-          style: TextStyle(fontSize: 24),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Icon(Icons.auto_awesome_motion_outlined),
+            const SizedBox(height: 10),
+            const Text(
+              'No habits yet!',
+              style: TextStyle(fontSize: 24),
+            ),
+          ],
         ),
       );
     } else {
       return Column(
         children: [
-          const SizedBox(height: 24),
+          const SizedBox(height: 22),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(8),
@@ -159,8 +140,11 @@ class _MyWidgetState extends State<HomePage> {
                     padding: const EdgeInsets.only(
                         left: 20.0, right: 20.0, top: 20.0),
                     child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       alignment: Alignment.centerRight,
-                      color: Colors.red,
                       child: const Padding(
                         padding: EdgeInsets.only(right: 24.0),
                         child: Icon(Icons.delete, color: Colors.white),
