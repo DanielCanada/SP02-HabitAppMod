@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:habittrackerapp/models/habits.dart';
 
 class HabitTile extends StatelessWidget {
-  final String habitName;
   final VoidCallback onTap;
   final VoidCallback settingsTapped;
   final VoidCallback restartTapped;
-  final int timeSpent;
-  final int timeGoal;
-  final bool habitStarted;
+  Habits habit;
 
-  const HabitTile(
-      {Key? key,
-      required this.habitName,
-      required this.onTap,
-      required this.settingsTapped,
-      required this.timeSpent,
-      required this.timeGoal,
-      required this.habitStarted,
-      required this.restartTapped})
-      : super(key: key);
+  HabitTile({
+    Key? key,
+    required this.onTap,
+    required this.settingsTapped,
+    required this.restartTapped,
+    required this.habit,
+  }) : super(key: key);
 
   // convert seconds into mini sec
   String formatToMinSec(int totalSeconds) {
@@ -41,7 +36,7 @@ class HabitTile extends StatelessWidget {
 
   // calculate progress percentage
   double percentCompleted() {
-    return timeSpent / (timeGoal * 60);
+    return habit.timeSpent / (habit.timeGoal * 60);
   }
 
   @override
@@ -78,8 +73,9 @@ class HabitTile extends StatelessWidget {
                               : Colors.red,
                         ),
                         Center(
-                            child: Icon(
-                                habitStarted ? Icons.pause : Icons.play_arrow)),
+                            child: Icon(habit.habitStarted
+                                ? Icons.pause
+                                : Icons.play_arrow)),
                       ],
                     ),
                   ),
@@ -89,7 +85,7 @@ class HabitTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      habitName,
+                      habit.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -99,7 +95,7 @@ class HabitTile extends StatelessWidget {
                     Text(
                       percentCompleted() == 1
                           ? "Completed!"
-                          : "${formatToMinSec(timeSpent)} / $timeGoal = ${(percentCompleted() * 100).toStringAsFixed(0)}%",
+                          : "${formatToMinSec(habit.timeSpent)} / ${habit.timeGoal} = ${(percentCompleted() * 100).toStringAsFixed(0)}%",
                       style: const TextStyle(color: Colors.grey),
                     )
                   ],
@@ -108,7 +104,7 @@ class HabitTile extends StatelessWidget {
             ),
             Row(
               children: [
-                habitStarted
+                habit.habitStarted
                     ? const Icon(
                         Icons.timelapse_rounded,
                         color: Colors.black,
