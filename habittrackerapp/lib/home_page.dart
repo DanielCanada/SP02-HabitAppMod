@@ -73,6 +73,41 @@ class _MyWidgetState extends State<HomePage> {
         title: const Text("Small Daily Habits Lead to Long Term Growth.",
             style: TextStyle(fontSize: 16)),
         centerTitle: false,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_sharp),
+            tooltip: 'Information',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Simple Habit Tracker App'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: const <Widget>[
+                        Text(
+                            'This is a modified habit tracker app from youtube.\n'),
+                        Text('• Slide tile to left to delete •\n'),
+                        Text(
+                          '©Taga-alaga ni iris',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('back'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
       ),
       body: ValueListenableBuilder<Box<Habits>>(
         valueListenable: Boxes.getHabits().listenable(),
