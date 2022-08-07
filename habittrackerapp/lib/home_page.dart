@@ -168,8 +168,10 @@ class _MyWidgetState extends State<HomePage> {
                       habits.removeAt(index);
                     });
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('${habit.name} removed')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('${habit.name} removed'),
+                      backgroundColor: Colors.red,
+                    ));
                   },
                   background: Padding(
                     padding: const EdgeInsets.only(
