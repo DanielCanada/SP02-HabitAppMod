@@ -70,7 +70,7 @@ class _MyWidgetState extends State<HomePage> {
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
-        title: const Text("Small Daily Habits Lead to Long Term Growth.",
+        title: const Text("Start Small, Grow Big.",
             style: TextStyle(fontSize: 16)),
         centerTitle: false,
         actions: [
@@ -86,10 +86,10 @@ class _MyWidgetState extends State<HomePage> {
                     child: ListBody(
                       children: const <Widget>[
                         Text(
-                            'This is a modified habit tracker app from youtube.\n'),
+                            'This is a modified habit tracker app from youtube. (Habit tracker UI by Mitch Koko)\n'),
                         Text('• Slide tile to left to delete •\n'),
                         Text(
-                          '©Taga-alaga ni iris',
+                          '©CheeseSaux',
                           style: TextStyle(fontSize: 13),
                         ),
                       ],
@@ -153,7 +153,7 @@ class _MyWidgetState extends State<HomePage> {
           const SizedBox(height: 22),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(6),
               itemCount: habits.length,
               itemBuilder: (BuildContext context, int index) {
                 final habit = habits[index];

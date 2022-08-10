@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habittrackerapp/models/habits.dart';
+import 'package:flutter/services.dart';
 
 class HabitDialog extends StatefulWidget {
   final Habits? habit;
@@ -74,13 +75,16 @@ class _HabitDialogState extends State<HabitDialog> {
 
   Widget buildName() => TextFormField(
         cursorColor: Colors.black,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(17),
+        ],
         controller: nameController,
         decoration: const InputDecoration(
           labelText: "Label:",
           labelStyle: TextStyle(color: Colors.black, fontSize: 14),
         ),
         validator: (name) =>
-            name != null && name.isEmpty ? 'Enter a name' : null,
+            name != null && name.isEmpty ? 'Enter a valid label' : null,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.done,
         style: const TextStyle(color: Colors.black),
